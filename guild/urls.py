@@ -6,5 +6,6 @@ router = routers.DefaultRouter()
 router.register('guild', GuildViewSet) # 유저리스트 (테스트용)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('inout/<int:guild_id>', InOutGuild.as_view()),
 ]
