@@ -28,7 +28,6 @@ path: /api/guild/inout/:guild_id/
 class InOutGuild(APIView):
     def get(self, request, guild_id):
         permission_classes = [IsAuthenticated]
-        print("user ===>", request.user)
         guild_list = Guild.objects.all().order_by('-member_number')
         guild = Guild.objects.filter(pk=guild_id).first()
         if guild:
