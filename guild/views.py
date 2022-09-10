@@ -49,9 +49,10 @@ class InOutGuild(APIView):
         
         if guild:
             guild.member_number = guild.member_number - 1
-            if not guild.member_number:
+            if guild.member_number:
+                guild.save()
+            else:
                 guild.delete()
-            guild.save()
             serializer_context = {'request': request,}
             serializer_class = GuildSerializer(guild_list, many=True, context=serializer_context)
             #! 유저 serialize 같이 보내주기
