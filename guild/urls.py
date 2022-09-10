@@ -3,7 +3,8 @@ from .views import *
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register('guild', GuildViewSet) # 유저리스트 (테스트용)
+router.register('guild', GuildViewSet)
+
 
 urlpatterns = [
     path('', include(router.urls)),

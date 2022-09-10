@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
 class Guild(models.Model):
     guild_name = models.CharField(max_length=20, unique=True, null=False, blank=False, help_text="길드 이름")
     guild_image = models.ImageField(help_text="길드 이미지")
