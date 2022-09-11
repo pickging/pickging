@@ -13,6 +13,9 @@ class Path(models.Model):
     path_length = models.IntegerField(choices=PathLength.choices, primary_key=True, help_text="경로 길이(1:1km, 3:3km, 5:5km)")
     mission = models.CharField(max_length=200, null=True, blank=True, help_text="미션")
 
+    def __str__(self):
+        return str(self.path_length) + "km 경로"
+
 class Spot(models.Model):
     class SpotType(models.IntegerChoices):
         SOL_SPOT = 0    # 솔방울 정산소
