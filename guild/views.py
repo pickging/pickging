@@ -20,6 +20,14 @@ class GuildViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = GuildSerializer
     queryset = Guild.objects.all()
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        region = self.request.query_params.get('region', '')
+        print("region ===", region)
+        if region:
+            queryset = queryset.filter(region__exact=region)
+        
+        return queryset
 
 
 """
@@ -34,8 +42,7 @@ class InOutGuild(APIView):
         guild = Guild.objects.filter(pk=guild_id).first()
         user = User.objects.filter(email=request.user).first()
         if user.guild.id == guild_id:
-            return JsonResponse({'err_msg': '이미 길드의 회원임!!'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
-)
+            return JsonResponse({'err_msg': '이미 길드의 회원임!!'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         if guild:
             if user.guild: # 가입한 길드가 있다면
                 delete_guild = Guild.objects.filter(pk=user.guild.id).first()
