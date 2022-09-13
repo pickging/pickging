@@ -38,6 +38,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    region = models.CharField(max_length=10, null=True, blank=True, help_text="지역")
+    point = models.IntegerField(default=0, help_text="잔여포인트")
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'

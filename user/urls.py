@@ -15,4 +15,6 @@ urlpatterns = [
 
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     # 토큰 재발급 -> 127.0.0.1:8000/api/user/dj-rest-auth/token/refresh/ 으로 {refresh:"토큰"} 전송
+
+    path('region/', UserRegion.as_view())
 ]
