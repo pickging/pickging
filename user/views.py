@@ -40,22 +40,21 @@ def kakao_login(request):
 def kakao_callback(request):
     client_id = os.environ.get("SOCIAL_AUTH_KAKAO_CLIENT_ID")
     code = request.GET.get("code")
-    print("code ====>", code)
     # code로 access token 요청
     token_request = requests.get(f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={KAKAO_CALLBACK_URI}&code={code}")
     token_response_json = token_request.json()
-
+    
     error = token_response_json.get("error", None)
     if error is not None:
         raise JSONDecodeError(error)
 
     access_token = token_response_json.get("access_token")
-
     # access token으로 카카오톡 프로필 요청
     profile_request = requests.post(
         "https://kapi.kakao.com/v2/user/me",
         headers={"Authorization": f"Bearer {access_token}"},
     )
+    
     profile_json = profile_request.json()
 
     kakao_account = profile_json.get("kakao_account")
