@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'user',
     'map',
     'guild',
+    'activity',
 
     # 설치한 라이브러리
     'rest_framework',

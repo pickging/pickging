@@ -5,10 +5,12 @@ from json import JSONDecodeError
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from rest_framework import status, viewsets
+from rest_framework.views import APIView
 from allauth.socialaccount.models import SocialAccount
 from dj_rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from allauth.socialaccount.providers.kakao import views as kakao_view
+from rest_framework.response import Response
 
 
 # Create your views here.
@@ -16,6 +18,16 @@ class UserViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class UserRegion(APIView):
+    def post(self, request):
+        region = request.data.get("region")
+        # print(request.user, region)
+        user = User.objects.get(email=request.user)
+        user.region = region
+        user.save()
+        return Response({"detail":"user region"})
+
 
 BASE_URL = 'http://127.0.0.1:8000/'
 KAKAO_CALLBACK_URI = BASE_URL + 'api/user/kakao/callback/'
