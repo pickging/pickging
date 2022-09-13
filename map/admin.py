@@ -3,8 +3,7 @@ from .models import *
 
 # Register your models here.
 class PathAdmin(admin.ModelAdmin):
-    # list_display = [f.name for f in Path._meta.fields]
-    list_display = ['path_length', 'path_coordinate', 'mission']
+    list_display = [f.name for f in Path._meta.fields]
 
 class SpotAdmin(admin.ModelAdmin):
     list_display = [f.name for f in Spot._meta.fields]

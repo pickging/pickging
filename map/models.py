@@ -5,16 +5,19 @@ from django.contrib.postgres.fields import ArrayField
 # Create your models here.
 class Path(models.Model):
     class PathLength(models.IntegerChoices):
-        km1 = 1    # 1km (pk)
-        km3 = 3    # 3km (pk)
-        km5 = 5    # 5km (pk)
+        km2 = 2    # 2km
+        km3 = 3    # 3km
+        km5 = 5    # 5km
+        km7 = 7    # 7km
 
-    path_coordinate = ArrayField(models.CharField(max_length=30), null=True, blank=True, help_text="경로 위경도 배열") # ['127.0 35.0', '127.1 35.1']
-    path_length = models.IntegerField(choices=PathLength.choices, primary_key=True, help_text="경로 길이(1:1km, 3:3km, 5:5km)")
+    length_category = models.IntegerField(choices=PathLength.choices, help_text="경로 길이")
+    path_coordinate = ArrayField(models.CharField(max_length=30), null=True, blank=True, help_text="경로 위경도 좌표 배열") # ['127.0 35.0', '127.1 35.1']
+    path_length = models.FloatField(default=0, help_text="실제 경로 거리")
+    maybe_time = models.IntegerField(default=0, help_text="예상 소요시간(분)")
     mission = models.CharField(max_length=200, null=True, blank=True, help_text="미션")
 
     def __str__(self):
-        return str(self.path_length) + "km 경로"
+        return str(self.length_category) + "km 경로"
 
 class Spot(models.Model):
     class SpotType(models.IntegerChoices):
