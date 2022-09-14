@@ -1,5 +1,7 @@
 from .serializers import *
 from .models import *
+from activity.serializers import *
+from activity.models import *
 import requests, os
 from json import JSONDecodeError
 from django.http import JsonResponse
@@ -38,6 +40,20 @@ class CurrentUser(APIView):
         user = User.objects.get(email=request.user)
         user_serializer = UserSerializer(user)
         return Response({"user":user_serializer.data})
+
+class UserActivity(APIView):
+    def get(self, request, user_id):
+        permission_classes = [IsAuthenticated]
+        user = User.objects.get(email=request.user)
+        
+        if user_id != user.id:
+            return JsonResponse({'err_msg': '토큰 유저와 user_id 유저가 일치하지 않음'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        user_serializer = UserSerializer(user)
+        activity_list = Activity.objects.filter(user_id=user_id)
+        activity_serializer = ActivitySerializer(activity_list)
+        print("activity_list ===>", activity_serializer)
+        return Response({"user":user_serializer.data, "activity":activity_serializer.data})
 
 
 BASE_URL = 'http://127.0.0.1:8000/'
