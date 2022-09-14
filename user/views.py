@@ -11,6 +11,7 @@ from dj_rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from allauth.socialaccount.providers.kakao import views as kakao_view
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 
 # Create your views here.
@@ -27,6 +28,13 @@ class UserRegion(APIView):
         user.region = region
         user.save()
         return Response({"detail":"user region"})
+
+class CurrentUser(APIView):
+    def get(self, request):
+        permission_classes = [IsAuthenticated]
+        user = User.objects.get(email=request.user)
+        user_serializer = UserSerializer(user)
+        return Response({"user":user_serializer.data})
 
 
 BASE_URL = 'http://127.0.0.1:8000/'
