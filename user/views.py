@@ -20,14 +20,17 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class UserRegion(APIView):
+class UserEdit(APIView):
     def post(self, request):
+        nickname = request.data.get("nickname")
         region = request.data.get("region")
         # print(request.user, region)
         user = User.objects.get(email=request.user)
+        user.nickname = nickname
         user.region = region
         user.save()
-        return Response({"detail":"user region"})
+        user_serializer = UserSerializer(user)
+        return Response({"user":user_serializer.data})
 
 class CurrentUser(APIView):
     def get(self, request):

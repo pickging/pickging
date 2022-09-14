@@ -31,6 +31,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     
     email = models.EmailField(max_length=30, unique=True, null=False, blank=False)
+    nickname = models.CharField(max_length=15, default="유저", null=False, blank=False)
     guild = models.ForeignKey(Guild, on_delete=models.SET_NULL, null=True)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
