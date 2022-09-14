@@ -4,6 +4,8 @@ from django.db import models
 class Activity(models.Model):
     user = models.ForeignKey("user.User", related_name="user", on_delete=models.CASCADE, null=True, blank=True, help_text="유저")
     path = models.ForeignKey("map.Path", related_name="path", on_delete=models.CASCADE, null=True, blank=True, help_text="경로")
-    date = models.DateField(null=True, blank=True, help_text="날짜")
-    point = models.IntegerField(null=True, blank=True, help_text="포인트")
-    garbage = models.FloatField(null=True, blank=True, help_text="쓰레기양")
+    date = models.DateField(auto_now_add=True, help_text="날짜")
+    point = models.IntegerField(default=0, help_text="포인트")
+    garbage = models.FloatField(default=0, help_text="쓰레기양")
+    step_count = models.IntegerField(default=0, help_text="걸음수")
+    review = models.IntegerField(default=0, help_text="별점")
