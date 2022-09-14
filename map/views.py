@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class PathViewSet(viewsets.ModelViewSet):
-    # permission_classes = [IsAuthenticated] # Header - Bearer <access 토큰> 담아서 요청
+    permission_classes = [IsAuthenticated] # Header - Bearer <access 토큰> 담아서 요청
     queryset = Path.objects.all()
     serializer_class = PathSerializer
 
