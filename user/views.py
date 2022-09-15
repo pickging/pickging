@@ -51,7 +51,7 @@ class UserActivity(APIView):
 
         user_serializer = UserSerializer(user)
         activity_list = Activity.objects.filter(user_id=user_id)
-        activity_serializer = ActivitySerializer(activity_list)
+        activity_serializer = ActivitySerializer(activity_list, many=True)
         print("activity_list ===>", activity_serializer)
         return Response({"user":user_serializer.data, "activity":activity_serializer.data})
 
