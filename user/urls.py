@@ -19,4 +19,5 @@ urlpatterns = [
     path('edit/', UserEdit.as_view()),
     path('current/', CurrentUser.as_view()),
     path('<int:user_id>/activity/', UserActivity.as_view()),
+    path('calculatepoint/<int:pk>', CalculatePoint.as_view())
 ]
