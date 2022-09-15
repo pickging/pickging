@@ -55,10 +55,6 @@ class UserActivity(APIView):
         print("activity_list ===>", activity_serializer)
         return Response({"user":user_serializer.data, "activity":activity_serializer.data})
 
-class CalculatePoint(APIView):
-    def get(self, request, pk):
-        print("pk===>",pk)
-        return Response({"detail":"lala"})
 
 BASE_URL = 'http://127.0.0.1:8000/'
 KAKAO_CALLBACK_URI = BASE_URL + 'api/user/kakao/callback/'
