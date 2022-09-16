@@ -1,5 +1,6 @@
 from random import choices
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class Path(models.Model):
@@ -24,7 +25,7 @@ class Spot(models.Model):
         PICK_SPOT = 1   # 픽스팟
 
     name = models.CharField(max_length=20, help_text="스팟 이름")
-    geojson = models.TextField(null=True, blank=True, help_text="스팟 geojson (문자열)")
+    coordinate = ArrayField(models.FloatField(), help_text="스팟 위경도")
     type = models.IntegerField(choices=SpotType.choices, help_text="스팟 종류(0:솔방울정산소, 1:픽스팟)")
 
     def __str__(self):
