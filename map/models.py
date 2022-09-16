@@ -11,7 +11,7 @@ class Path(models.Model):
 
     name = models.CharField(max_length=20, help_text="경로 이름")
     length_category = models.IntegerField(choices=PathLength.choices, help_text="경로 거리 범주")
-    geojson = models.TextField(null=True, blank=True, help_text="경로 geojson (문자열)")
+    coordinate = ArrayField(models.CharField(max_length=40), null=True, blank=True, help_text="경로 지점 위경도")
     length = models.FloatField(default=0, help_text="실제 경로 거리")
     maybe_time = models.IntegerField(default=0, help_text="예상 소요시간(분)")
     mission = models.CharField(max_length=200, null=True, blank=True, help_text="미션")
